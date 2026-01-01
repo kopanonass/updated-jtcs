@@ -1,0 +1,3742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JUDASTHEE-CODER STORE - Social Following</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: #000000;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    /* UPDATED: Centered Glass-like Broker Container */
+    .broker-glass-container {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      animation: fadeInUp 0.5s ease-out 1s both;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .broker-glass-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50px;
+      padding: 15px 25px;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0, 102, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .broker-glass-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .broker-glass-link:hover::before {
+      left: 100%;
+    }
+
+    .broker-glass-link:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(0, 102, 255, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0, 102, 255, 0.3);
+    }
+
+    .broker-glass-icon {
+      font-size: 20px;
+      color: #0066FF;
+    }
+
+    .broker-glass-text {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* NEW: Close button for broker container */
+    .broker-close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .broker-close-btn:hover {
+      background: rgba(255, 0, 0, 0.2);
+      border-color: rgba(255, 0, 0, 0.3);
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    /* Mobile responsiveness for glass container */
+    @media (max-width: 768px) {
+      .broker-glass-container {
+        top: 15px;
+      }
+      
+      .broker-glass-link {
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+      
+      .broker-glass-icon {
+        font-size: 18px;
+      }
+      
+      .broker-close-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .broker-glass-container {
+        top: 10px;
+      }
+      
+      .broker-glass-link {
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+      
+      .broker-glass-text span {
+        display: none;
+      }
+      
+      .broker-glass-text::after {
+        content: "Broker";
+      }
+      
+      .broker-close-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+      }
+    }
+
+    .container {
+      width: 100%;
+      padding: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* NEW: Header Section with Image on Right and Text on Left */
+    .header-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 30px;
+      padding: 40px 20px;
+      width: 100%;
+    }
+
+    /* Text Container - Left Side */
+    .header-text-container {
+      flex: 1;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .store-name {
+      font-size: 42px;
+      font-weight: 800;
+      color: #0066FF;
+      line-height: 1.2;
+      text-shadow: 0 0 15px rgba(0, 102, 255, 0.7);
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .store-tagline {
+      font-size: 18px;
+      color: #aaaaaa;
+      font-weight: 600;
+      letter-spacing: 1px;
+      line-height: 1.6;
+      text-align: left;
+      max-width: 500px;
+      min-height: 60px;
+      position: relative;
+    }
+
+    .tagline-text {
+      display: inline-block;
+    }
+
+    .animated-words-container {
+      display: inline-block;
+    }
+
+    .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: wordFadeIn 0.5s ease forwards;
+      color: #0066FF;
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    /* UPDATED: Animation starts after 2 seconds */
+    .word:nth-child(1) { animation-delay: 2s; }
+    .word:nth-child(2) { animation-delay: 2.5s; }
+    .word:nth-child(3) { animation-delay: 3s; }
+    .word:nth-child(4) { animation-delay: 3.5s; }
+
+    @keyframes wordFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Image Container - Right Side */
+    .header-image-container {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .header-image {
+      width: 100%;
+      max-width: 500px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3);
+      border: 3px solid #0066FF;
+      transition: all 0.3s ease;
+    }
+
+    .header-image:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 102, 255, 0.5);
+    }
+
+    /* Stats Section - Centered and Updated Layout */
+    .stats-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      margin-top: 30px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+
+    .stat-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 150px;
+    }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: 700;
+      color: #0066FF;
+      margin-bottom: 5px;
+      text-shadow: 0 0 10px rgba(0, 102, 255, 0.5);
+    }
+
+    .stat-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #cccccc;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .heading {
+      font-size: 28px;
+      font-weight: 700;
+      margin-top: 10px;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+
+    .social-section {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .social-icons-container {
+      display: flex;
+      gap: 80px;
+      justify-content: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .social-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .social-box img {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 10px rgba(0, 102, 255, 0.3));
+      background: white;
+      border-radius: 15px;
+      padding: 10px;
+    }
+
+    .tiktok-icon {
+      width: 90px;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: white;
+      border-radius: 15px;
+      padding: 10px;
+    }
+
+    .tiktok-icon svg {
+      width: 100%;
+      height: 100%;
+      fill: #000000;
+    }
+
+    .followers {
+      margin-top: 10px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #0066FF;
+    }
+
+    .followers-text {
+      font-size: 15px;
+      color: #aaaaaa;
+    }
+
+    /* Telegram Button Container */
+    .telegram-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+
+    .telegram-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #0066FF, #3399FF);
+      color: white;
+      padding: 15px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 15px rgba(0, 102, 255, 0.3);
+      letter-spacing: 0.5px;
+      min-width: 200px;
+    }
+
+    .telegram-button:hover {
+      background: linear-gradient(135deg, #0055DD, #0088FF);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 102, 255, 0.5);
+    }
+
+    .telegram-button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 10px rgba(0, 102, 255, 0.25);
+    }
+
+    .telegram-icon {
+      font-size: 24px;
+    }
+
+    .elevate-section {
+      margin-top: 30px;
+      margin-bottom: 40px;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .elevate-title {
+      font-size: 42px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      line-height: 1.2;
+      text-shadow: 0 0 10px rgba(0, 102, 255, 0.5);
+    }
+
+    .elevate-subtitle {
+      font-size: 28px;
+      font-weight: 600;
+      color: #0066FF;
+      letter-spacing: 0.5px;
+      margin-top: 0;
+    }
+
+    .elevate-description {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #cccccc;
+      max-width: 800px;
+      margin: 30px auto 0;
+      padding: 20px;
+      text-align: center;
+      background: rgba(0, 102, 255, 0.05);
+      border-radius: 10px;
+      border-left: 4px solid #0066FF;
+    }
+
+    .features-container {
+      width: 90%;
+      max-width: 1200px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin: 60px auto;
+      flex-wrap: wrap;
+    }
+
+    .feature-image-container {
+      width: 100%;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .feature-image {
+      max-width: 600px;
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 102, 255, 0.3);
+      margin: 0 auto;
+      display: block;
+      border: 2px solid #0066FF;
+    }
+
+    .feature-box {
+      background: rgba(0, 102, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      width: 23%;
+      min-width: 240px;
+      box-sizing: border-box;
+      text-align: left;
+      box-shadow: 0 3px 10px rgba(0, 102, 255, 0.1);
+      border: 1px solid rgba(0, 102, 255, 0.1);
+    }
+
+    .feature-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #0066FF;
+    }
+
+    .feature-box p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #cccccc;
+    }
+
+    .products-section {
+      margin-top: 80px;
+      margin-bottom: 60px;
+    }
+
+    .products-heading {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+
+    .products-subheading {
+      font-size: 18px;
+      color: #aaaaaa;
+      margin-bottom: 60px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+
+    .products-container {
+      width: 90%;
+      max-width: 1000px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 40px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background: rgba(0, 102, 255, 0.05);
+      border-radius: 20px;
+      padding: 0 0 50px 0;
+      box-sizing: border-box;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(0, 102, 255, 0.1);
+      transition: all 0.3s ease;
+      border: 2px solid rgba(0, 102, 255, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 102, 255, 0.2);
+      border-color: #0066FF;
+    }
+
+    .product-card:nth-child(2):hover {
+      border-color: #00AAFF;
+    }
+
+    .product-image-full {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      margin-bottom: 25px;
+      border-radius: 20px 20px 0 0;
+    }
+
+    /* MOBILE PHONE FRAME STYLES */
+    .mobile-phone-frame {
+      position: relative;
+      width: 280px;
+      height: 560px;
+      margin: 20px auto 30px;
+      background: #000;
+      border-radius: 40px;
+      padding: 10px;
+      box-shadow: 0 20px 50px rgba(0, 170, 255, 0.3);
+      border: 8px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mobile-phone-frame::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 25px;
+      background: #333;
+      border-radius: 0 0 15px 15px;
+      z-index: 10;
+    }
+
+    .mobile-phone-frame::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 5px;
+      background: #333;
+      border-radius: 10px;
+    }
+
+    .mobile-screen {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #00AAFF, #0066FF);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mobile-screen-content {
+      padding: 30px;
+      text-align: center;
+      color: white;
+      z-index: 2;
+    }
+
+    .mobile-screen-icon {
+      font-size: 60px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .mobile-screen-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: white;
+    }
+
+    .mobile-screen-subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .mobile-screen-apps {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .mobile-app-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .mobile-screen-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('4.jpeg') center/cover;
+      opacity: 0.3;
+      border-radius: 30px;
+    }
+
+    .product-icon {
+      font-size: 60px;
+      margin-bottom: 25px;
+      height: 80px;
+      width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0066FF, #3399FF);
+      color: white;
+      display: none;
+    }
+
+    .product-card:nth-child(2) .product-icon {
+      background: linear-gradient(135deg, #00AAFF, #66CCFF);
+    }
+
+    .product-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #ffffff;
+      line-height: 1.3;
+      padding: 0 20px;
+    }
+
+    .product-subtitle {
+      font-size: 18px;
+      font-weight: 600;
+      color: #aaaaaa;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+      padding: 0 20px 15px;
+    }
+
+    .get-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #0066FF, #3399FF);
+      color: white;
+      padding: 18px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 15px rgba(0, 102, 255, 0.3);
+      margin-top: auto;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .get-button:hover {
+      background: linear-gradient(135deg, #0055DD, #0088FF);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 102, 255, 0.5);
+    }
+
+    .get-button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 10px rgba(0, 102, 255, 0.25);
+    }
+
+    .mobile-button {
+      background: linear-gradient(135deg, #00AAFF, #66CCFF);
+      box-shadow: 0 6px 15px rgba(0, 170, 255, 0.3);
+    }
+
+    .mobile-button:hover {
+      background: linear-gradient(135deg, #0099EE, #44BBFF);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 170, 255, 0.4);
+    }
+
+    .info-arrow {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(0, 102, 255, 0.1);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      color: #0066FF;
+      transition: all 0.3s ease;
+      z-index: 5;
+    }
+
+    .info-arrow:hover {
+      background: #0066FF;
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .product-card:nth-child(2) .info-arrow:hover {
+      background: #00AAFF;
+    }
+
+    .details-overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #000000;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-sizing: border-box;
+      z-index: 10;
+      text-align: left;
+      overflow-y: auto;
+      animation: fadeIn 0.3s ease;
+      border: 2px solid #0066FF;
+    }
+
+    .details-overlay.active {
+      display: block;
+    }
+
+    .details-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(0, 102, 255, 0.2);
+    }
+
+    .details-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0066FF;
+    }
+
+    .mobile-details .details-title {
+      color: #00AAFF;
+    }
+
+    .back-arrow {
+      background: rgba(0, 102, 255, 0.1);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      color: #0066FF;
+      transition: all 0.3s ease;
+    }
+
+    .back-arrow:hover {
+      background: #0066FF;
+      color: white;
+      transform: translateX(-3px);
+    }
+
+    .mobile-details .back-arrow:hover {
+      background: #00AAFF;
+    }
+
+    .version-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: #aaaaaa;
+      margin-bottom: 5px;
+    }
+
+    .robot-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 30px;
+      line-height: 1.2;
+    }
+
+    .key-benefits-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0066FF;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(0, 102, 255, 0.2);
+    }
+
+    .mobile-details .key-benefits-title {
+      color: #00AAFF;
+      border-bottom-color: rgba(0, 170, 255, 0.2);
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      background: rgba(0, 102, 255, 0.05);
+      border-radius: 10px;
+      border-left: 4px solid #0066FF;
+    }
+
+    .mobile-details .benefit-item {
+      background: rgba(0, 170, 255, 0.05);
+      border-left-color: #00AAFF;
+    }
+
+    .benefit-icon {
+      margin-right: 12px;
+      color: #0066FF;
+      font-size: 18px;
+      min-width: 24px;
+    }
+
+    .mobile-details .benefit-icon {
+      color: #00AAFF;
+    }
+
+    .benefit-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #cccccc;
+    }
+
+    .special-feature {
+      margin-top: 25px;
+      padding: 20px;
+      background: linear-gradient(135deg, #0066FF, #3399FF);
+      border-radius: 15px;
+      color: white;
+      text-align: center;
+    }
+
+    .mobile-details .special-feature {
+      background: linear-gradient(135deg, #00AAFF, #66CCFF);
+    }
+
+    .feature-title-large {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .feature-text {
+      font-size: 16px;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    .trusted-section {
+      margin-top: 60px;
+      margin-bottom: 100px;
+      padding: 70px 20px;
+      background: rgba(0, 102, 255, 0.05);
+      border-radius: 20px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 10px 30px rgba(0, 102, 255, 0.08);
+      border: 1px solid rgba(0, 102, 255, 0.1);
+    }
+
+    .trusted-heading {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+      color: #ffffff;
+      background: linear-gradient(135deg, #0066FF, #00AAFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .trusted-subheading {
+      font-size: 20px;
+      color: #aaaaaa;
+      margin-bottom: 40px;
+      line-height: 1.6;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 600;
+    }
+
+    .carousel-container {
+      position: relative;
+      max-width: 350px;
+      margin: 40px auto;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 102, 255, 0.2);
+      border: 2px solid #0066FF;
+    }
+
+    .carousel {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .user-image {
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 600px;
+      background: linear-gradient(135deg, #0066FF, #00AAFF);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .image-placeholder span {
+      font-size: 16px;
+      margin-top: 10px;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.7);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 20px;
+      color: #0066FF;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+    }
+
+    .carousel-arrow:hover {
+      background: #0066FF;
+      color: white;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-arrow-left {
+      left: 10px;
+    }
+
+    .carousel-arrow-right {
+      right: 10px;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #333;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .carousel-dot.active {
+      background: #0066FF;
+      transform: scale(1.2);
+    }
+
+    .trusted-description {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #cccccc;
+      margin-top: 40px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 25px;
+      background: rgba(0, 102, 255, 0.05);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 102, 255, 0.05);
+    }
+
+    .faq-section {
+      margin-top: 80px;
+      margin-bottom: 80px;
+      width: 90%;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .faq-heading {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 50px;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+
+    .faq-container {
+      text-align: left;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 25px 0;
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      transition: color 0.3s ease;
+    }
+
+    .faq-question:hover {
+      color: #0066FF;
+    }
+
+    .faq-arrow {
+      font-size: 16px;
+      color: #0066FF;
+      min-width: 24px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: maxHeight 0.5s ease, padding-top 0.3s ease;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #aaaaaa;
+    }
+
+    .faq-answer.active {
+      max-height: 1000px;
+      padding-top: 20px;
+    }
+
+    .bot-name {
+      color: #0066FF;
+      font-weight: 700;
+    }
+
+    .version-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .version-button {
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex: 1;
+      min-width: 140px;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .pc-version-button {
+      background: linear-gradient(135deg, #0066FF, #3399FF);
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 102, 255, 0.2);
+    }
+
+    .pc-version-button:hover {
+      background: linear-gradient(135deg, #0055DD, #0088FF);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 102, 255, 0.3);
+    }
+
+    .mobile-version-button {
+      background: linear-gradient(135deg, #00AAFF, #66CCFF);
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 170, 255, 0.2);
+    }
+
+    .mobile-version-button:hover {
+      background: linear-gradient(135deg, #0099EE, #44BBFF);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 170, 255, 0.3);
+    }
+
+    .broker-list {
+      margin-top: 15px;
+      padding-left: 20px;
+    }
+
+    .broker-list li {
+      margin-bottom: 8px;
+      font-size: 15px;
+      color: #aaaaaa;
+    }
+
+    .highlight {
+      background-color: rgba(0, 102, 255, 0.2);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      color: #0066FF;
+    }
+
+    .custom-help-section {
+      margin-top: 80px;
+      margin-bottom: 100px;
+      padding: 60px 20px;
+      background: rgba(0, 102, 255, 0.05);
+      border-radius: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 10px 30px rgba(0, 102, 255, 0.08);
+      border: 1px solid rgba(0, 102, 255, 0.1);
+    }
+
+    .custom-help-heading {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+      color: #ffffff;
+    }
+
+    .custom-help-text {
+      font-size: 18px;
+      color: #aaaaaa;
+      margin-bottom: 35px;
+      line-height: 1.6;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .whatsapp-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #0066FF, #25D366);
+      color: white;
+      padding: 18px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 15px rgba(0, 102, 255, 0.25);
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .whatsapp-button:hover {
+      background: linear-gradient(135deg, #0055DD, #1DA851);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 102, 255, 0.35);
+    }
+
+    .whatsapp-button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 10px rgba(0, 102, 255, 0.25);
+    }
+
+    .whatsapp-icon {
+      font-size: 24px;
+    }
+
+    .help-note {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #777;
+      font-style: italic;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #000000 0%, #0a0a2a 100%);
+      color: white;
+      padding: 60px 20px 30px;
+      text-align: left;
+      margin-top: 40px;
+      clear: both;
+      border-top: 2px solid #0066FF;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-column {
+      margin-bottom: 30px;
+    }
+
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #0066FF;
+      letter-spacing: 1px;
+    }
+
+    .footer-tagline {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #aaaaaa;
+      margin-bottom: 20px;
+    }
+
+    .footer-heading {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #ffffff;
+      letter-spacing: 1px;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: #aaaaaa;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 15px;
+    }
+
+    .footer-links a:hover {
+      color: #0066FF;
+    }
+
+    .contact-info {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .contact-info li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+      font-size: 15px;
+      color: #aaaaaa;
+    }
+
+    .contact-icon {
+      margin-right: 10px;
+      color: #0066FF;
+      min-width: 20px;
+    }
+
+    .footer-social-icons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .footer-social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 102, 255, 0.1);
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 18px;
+    }
+
+    .footer-social-icon:hover {
+      background: #0066FF;
+      transform: translateY(-3px);
+    }
+
+    .footer-social-icon.instagram:hover {
+      background: linear-gradient(45deg, #0066FF, #405DE6, #833AB4, #E1306C);
+    }
+
+    .footer-social-icon.tiktok:hover {
+      background: #000000;
+      color: #00AAFF;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 50px auto 0;
+      padding-top: 30px;
+      border-top: 1px solid rgba(0, 102, 255, 0.1);
+      text-align: center;
+    }
+
+    .footer-disclaimer {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 25px;
+      line-height: 1.6;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-links-bottom {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin-bottom: 20px;
+    }
+
+    .footer-links-bottom a {
+      color: #aaaaaa;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links-bottom a:hover {
+      color: #0066FF;
+    }
+
+    .copyright {
+      font-size: 14px;
+      color: #777;
+      margin-top: 15px;
+    }
+
+    .terms-dropdown {
+      margin-top: 30px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .terms-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      padding: 10px 15px;
+      background: rgba(0, 102, 255, 0.1);
+      border-radius: 6px;
+      border: 1px solid rgba(0, 102, 255, 0.2);
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .terms-header:hover {
+      background: rgba(0, 102, 255, 0.15);
+    }
+
+    .terms-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0066FF;
+      letter-spacing: 0.5px;
+    }
+
+    .terms-arrow {
+      font-size: 14px;
+      transition: transform 0.3s ease;
+      color: #0066FF;
+      margin-left: 10px;
+    }
+
+    .terms-arrow.active {
+      transform: rotate(180deg);
+      color: #3399FF;
+    }
+
+    .terms-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.3s ease;
+      background: rgba(0, 102, 255, 0.05);
+      border-radius: 0 0 6px 6px;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .terms-content.active {
+      max-height: 2000px;
+      padding: 20px;
+    }
+
+    .terms-section {
+      margin-bottom: 20px;
+    }
+
+    .terms-section h3 {
+      font-size: 15px;
+      color: #0066FF;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .terms-section p, .terms-section li {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #aaaaaa;
+      margin-bottom: 6px;
+    }
+
+    .terms-section ul {
+      padding-left: 18px;
+      margin-bottom: 12px;
+    }
+
+    .product-selection-page {
+      display: none;
+      width: 100%;
+      padding: 40px 20px;
+      text-align: center;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .product-selection-page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .selection-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .back-button {
+      position: absolute;
+      left: 20px;
+      background: rgba(0, 102, 255, 0.1);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      color: #0066FF;
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      background: #0066FF;
+      color: white;
+      transform: translateX(-5px);
+    }
+
+    .selection-heading {
+      font-size: 32px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+
+    .selection-subheading {
+      font-size: 18px;
+      color: #aaaaaa;
+      margin-bottom: 50px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .products-selection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .product-selection-card {
+      background: rgba(0, 102, 255, 0.05);
+      border-radius: 15px;
+      padding: 30px 25px 35px;
+      box-shadow: 0 8px 25px rgba(0, 102, 255, 0.1);
+      border: 2px solid rgba(0, 102, 255, 0.2);
+      transition: all 0.3s ease;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-selection-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 102, 255, 0.2);
+      border-color: #0066FF;
+    }
+
+    .product-selection-card.pc-card:hover {
+      border-color: #0066FF;
+    }
+
+    .product-selection-card.mobile-card:hover {
+      border-color: #00AAFF;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(135deg, #0066FF, #3399FF);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .mobile-card .product-badge {
+      background: linear-gradient(135deg, #00AAFF, #66CCFF);
+    }
+
+    /* Product Selection Images */
+    .product-image-container {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      background: rgba(0, 102, 255, 0.05);
+      border: 1px solid rgba(0, 102, 255, 0.1);
+    }
+
+    .product-selection-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .product-selection-card:hover .product-selection-image {
+      transform: scale(1.05);
+    }
+
+    /* Remove the old icon styles */
+    .product-icon-large {
+      display: none;
+    }
+
+    .product-selection-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+
+    .product-compatibility {
+      font-size: 14px;
+      color: #aaaaaa;
+      margin-bottom: 25px;
+      padding: 10px;
+      background: rgba(0, 102, 255, 0.1);
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .product-features {
+      text-align: left;
+      margin-bottom: 30px;
+      flex-grow: 1;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      font-size: 15px;
+      color: #cccccc;
+      line-height: 1.5;
+    }
+
+    .feature-item i {
+      color: #0066FF;
+      margin-right: 10px;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .mobile-card .feature-item i {
+      color: #00AAFF;
+    }
+
+    .product-price {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0066FF;
+      margin-bottom: 25px;
+    }
+
+    .mobile-card .product-price {
+      color: #00AAFF;
+    }
+
+    .select-button {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #0066FF, #3399FF);
+      color: white;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .mobile-card .select-button {
+      background: linear-gradient(135deg, #00AAFF, #66CCFF);
+    }
+
+    .select-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 102, 255, 0.3);
+    }
+
+    .mobile-card .select-button:hover {
+      box-shadow: 0 10px 25px rgba(0, 170, 255, 0.3);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #000000;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      animation: slideUp 0.3s ease;
+      box-shadow: 0 20px 50px rgba(0, 102, 255, 0.3);
+      border: 2px solid #0066FF;
+    }
+
+    .modal-icon {
+      font-size: 50px;
+      color: #0066FF;
+      margin-bottom: 20px;
+    }
+
+    .modal h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #ffffff;
+    }
+
+    .modal p {
+      font-size: 16px;
+      color: #aaaaaa;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .modal-button {
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      font-size: 15px;
+      min-width: 120px;
+    }
+
+    .modal-confirm {
+      background: linear-gradient(135deg, #0066FF, #3399FF);
+      color: white;
+    }
+
+    .modal-cancel {
+      background: rgba(0, 102, 255, 0.1);
+      color: #0066FF;
+    }
+
+    .modal-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .main-content {
+      transition: opacity 0.3s ease;
+    }
+
+    .main-content.hidden {
+      display: none;
+    }
+
+    .current-page {
+      font-size: 14px;
+      color: #aaaaaa;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .page-indicator {
+      height: 6px;
+      width: 6px;
+      border-radius: 50%;
+      background: #333;
+    }
+
+    .page-indicator.active {
+      background: #0066FF;
+    }
+
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Loading animation for images */
+    .image-placeholder.loading {
+      animation: pulse 1.5s infinite;
+    }
+
+    @media (max-width: 1024px) {
+      .header-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+        padding: 30px 20px;
+      }
+
+      .header-text-container {
+        align-items: center;
+        text-align: center;
+      }
+
+      .store-name {
+        text-align: center;
+        font-size: 36px;
+      }
+
+      .store-tagline {
+        text-align: center;
+      }
+
+      .header-image-container {
+        justify-content: center;
+      }
+
+      .header-image {
+        max-width: 80%;
+        height: 350px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-section {
+        padding: 25px 15px;
+      }
+
+      .store-name {
+        font-size: 28px;
+      }
+
+      .store-tagline {
+        font-size: 16px;
+      }
+
+      .header-image {
+        max-width: 90%;
+        height: 300px;
+      }
+
+      .stats-section {
+        gap: 30px;
+        margin-top: 20px;
+        margin-bottom: 30px;
+      }
+
+      .stats-container {
+        gap: 30px;
+      }
+
+      .stat-number {
+        font-size: 28px;
+      }
+
+      .stat-text {
+        font-size: 14px;
+      }
+
+      .social-icons-container {
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      .telegram-button {
+        padding: 12px 25px;
+        font-size: 16px;
+        min-width: 180px;
+      }
+
+      .elevate-title {
+        font-size: 32px;
+      }
+      
+      .elevate-subtitle {
+        font-size: 22px;
+      }
+
+      .elevate-description {
+        font-size: 16px;
+        padding: 15px;
+        margin-top: 20px;
+      }
+
+      .features-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .feature-image {
+        max-width: 90%;
+        margin-bottom: 30px;
+      }
+
+      .feature-box {
+        width: 100%;
+      }
+
+      .products-container {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        gap: 30px;
+      }
+
+      .product-card {
+        padding: 0 0 50px 0;
+      }
+
+      .mobile-phone-frame {
+        width: 240px;
+        height: 480px;
+        margin: 15px auto 25px;
+      }
+
+      .mobile-phone-frame::before {
+        width: 120px;
+        height: 20px;
+      }
+
+      .mobile-screen-icon {
+        font-size: 50px;
+      }
+
+      .mobile-screen-title {
+        font-size: 20px;
+      }
+
+      .mobile-screen-subtitle {
+        font-size: 14px;
+      }
+
+      .mobile-app-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+
+      .product-image-full {
+        height: 220px;
+      }
+
+      .product-title {
+        font-size: 24px;
+      }
+
+      .product-subtitle {
+        font-size: 16px;
+      }
+
+      .get-button {
+        padding: 16px 30px;
+        font-size: 16px;
+        max-width: 100%;
+      }
+
+      .info-arrow {
+        bottom: 15px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+      }
+
+      .details-overlay {
+        padding: 30px 20px;
+      }
+
+      .details-title {
+        font-size: 20px;
+      }
+
+      .robot-title {
+        font-size: 24px;
+      }
+
+      .key-benefits-title {
+        font-size: 20px;
+      }
+
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .benefit-item {
+        padding: 10px 12px;
+      }
+
+      .trusted-section {
+        padding: 50px 20px;
+        margin: 40px 20px;
+      }
+
+      .trusted-heading {
+        font-size: 26px;
+      }
+
+      .trusted-subheading {
+        font-size: 18px;
+      }
+
+      .carousel-container {
+        max-width: 320px;
+      }
+
+      .user-image, .image-placeholder {
+        height: 500px;
+      }
+
+      .carousel-arrow {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+      }
+
+      .carousel-arrow-left {
+        left: 8px;
+      }
+
+      .carousel-arrow-right {
+        right: 8px;
+      }
+
+      .trusted-description {
+        font-size: 16px;
+        padding: 20px;
+      }
+
+      .faq-question {
+        font-size: 16px;
+        padding-right: 10px;
+      }
+
+      .faq-answer {
+        font-size: 15px;
+      }
+
+      .version-buttons {
+        flex-direction: column;
+      }
+
+      .custom-help-section {
+        padding: 40px 20px;
+        margin: 60px 20px;
+      }
+
+      .custom-help-heading {
+        font-size: 24px;
+      }
+
+      .custom-help-text {
+        font-size: 16px;
+      }
+
+      .whatsapp-button {
+        padding: 16px 30px;
+        font-size: 16px;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .footer-links-bottom {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+      }
+
+      .terms-header {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+
+      .terms-content.active {
+        padding: 15px;
+      }
+
+      .terms-section h3 {
+        font-size: 14px;
+      }
+
+      .terms-section p, .terms-section li {
+        font-size: 12px;
+      }
+
+      .footer-social-icons {
+        justify-content: center;
+      }
+
+      .selection-heading {
+        font-size: 26px;
+      }
+      
+      .selection-subheading {
+        font-size: 16px;
+        padding: 0 20px;
+      }
+      
+      .products-selection-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        gap: 25px;
+      }
+      
+      .product-selection-card {
+        padding: 30px 20px;
+      }
+      
+      .product-image-container {
+        height: 180px;
+      }
+      
+      .product-selection-title {
+        font-size: 22px;
+      }
+      
+      .back-button {
+        left: 10px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+      }
+      
+      .modal-content {
+        padding: 30px 20px;
+      }
+      
+      .modal h2 {
+        font-size: 24px;
+      }
+      
+      .modal-buttons {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-section {
+        padding: 20px 10px;
+      }
+
+      .store-name {
+        font-size: 24px;
+      }
+
+      .store-tagline {
+        font-size: 14px;
+      }
+
+      .header-image {
+        max-width: 100%;
+        height: 250px;
+      }
+
+      .stats-section {
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 25px;
+      }
+
+      .stats-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .stat-box {
+        min-width: 120px;
+      }
+
+      .stat-number {
+        font-size: 24px;
+      }
+
+      .stat-text {
+        font-size: 13px;
+      }
+
+      .products-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .product-card {
+        padding: 0 0 50px 0;
+      }
+      
+      .mobile-phone-frame {
+        width: 200px;
+        height: 400px;
+        margin: 10px auto 20px;
+        border-radius: 30px;
+        border-width: 6px;
+      }
+
+      .mobile-phone-frame::before {
+        width: 100px;
+        height: 18px;
+      }
+
+      .mobile-screen {
+        border-radius: 24px;
+      }
+
+      .mobile-screen-icon {
+        font-size: 40px;
+      }
+
+      .mobile-screen-title {
+        font-size: 18px;
+      }
+
+      .mobile-screen-subtitle {
+        font-size: 13px;
+      }
+
+      .mobile-app-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+      }
+      
+      .product-image-full {
+        height: 200px;
+      }
+      
+      .product-title {
+        font-size: 22px;
+      }
+
+      .product-subtitle {
+        font-size: 15px;
+      }
+
+      .trusted-heading {
+        font-size: 24px;
+      }
+
+      .trusted-subheading {
+        font-size: 16px;
+      }
+
+      .user-image, .image-placeholder {
+        height: 450px;
+      }
+
+      .faq-question {
+        font-size: 15px;
+      }
+
+      .whatsapp-button {
+        padding: 14px 25px;
+        font-size: 15px;
+      }
+
+      .telegram-button {
+        padding: 10px 20px;
+        font-size: 14px;
+        min-width: 160px;
+      }
+
+      .footer {
+        padding: 40px 15px 20px;
+      }
+
+      .elevate-title {
+        font-size: 26px;
+      }
+      
+      .elevate-subtitle {
+        font-size: 18px;
+      }
+
+      .elevate-description {
+        font-size: 15px;
+        padding: 12px;
+      }
+
+      .feature-image {
+        max-width: 95%;
+        margin-bottom: 25px;
+      }
+
+      .selection-heading {
+        font-size: 22px;
+      }
+      
+      .product-selection-title {
+        font-size: 20px;
+      }
+      
+      .product-price {
+        font-size: 24px;
+      }
+      
+      .feature-item {
+        font-size: 14px;
+      }
+      
+      .product-image-container {
+        height: 160px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- UPDATED: Centered Glass-like Broker Container with Close Button -->
+  <div class="broker-glass-container" id="brokerContainer">
+    <a href="https://one.justmarkets.link/a/kss7t06f22" target="_blank" class="broker-glass-link">
+      <i class="fas fa-chart-line broker-glass-icon"></i>
+      <span class="broker-glass-text">
+        <span>Recommended</span>
+        <i class="fas fa-external-link-alt"></i>
+      </span>
+    </a>
+    <div class="broker-close-btn" id="brokerCloseBtn">
+      <i class="fas fa-times"></i>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <div class="container main-content">
+    
+    <!-- NEW: Header Section with Text on Left and Image on Right -->
+    <div class="header-section">
+      <!-- Text Container - Left Side -->
+      <div class="header-text-container">
+        <div class="store-name">JUDASTHEE-CODER STORE</div>
+        <div class="store-tagline">
+          <span class="tagline-text">
+            <span class="animated-words-container">
+              <span class="word">UPDATED</span>
+              <span class="word">PROFITABLE</span>
+              <span class="word">FAST</span>
+              <span class="word">PRECISE</span>
+            </span>
+            <span style="color: #aaaaaa;">Premium Trading Solutions & Expert EA Development</span>
+          </span>
+        </div>
+      </div>
+      
+      <!-- Image Container - Right Side - REPLACED WITH IMAGE 1.jpeg -->
+      <div class="header-image-container">
+        <img src="1.jpeg" alt="JUDASTHEE-CODER STORE" class="header-image">
+      </div>
+    </div>
+
+    <!-- Stats Section - Centered -->
+    <div class="stats-section">
+      <div class="stats-container">
+        <div class="stat-box">
+          <div class="stat-number">500+</div>
+          <div class="stat-text">Lives Changed</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">91%</div>
+          <div class="stat-text">Accuracy</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">100k+</div>
+          <div class="stat-text">Lots Traded</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="heading">SOCIAL FOLLOWING</div>
+
+    <div class="social-section">
+      <div class="social-icons-container">
+
+        <!-- Fixed TikTok Icon -->
+        <div class="social-box">
+          <div class="tiktok-icon">
+            <svg viewBox="0 0 24 24" fill="#000000">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3.002.598.058.88.17v-3.26a6.27 6.27 0 0 0-.88-.06A6.18 6.18 0 0 0 5 20.1a6.18 6.18 0 0 0 10.76-4.43v-7a8.29 8.29 0 0 0 4.52 1.37v-3.4a4.85 4.85 0 0 1-.69-.05z"/>
+            </svg>
+          </div>
+          <div class="followers">116.3K</div>
+          <div class="followers-text">Followers</div>
+        </div>
+
+        <div class="social-box">
+          <a href="https://www.instagram.com/sgodo_za?igsh=eDE2N2xzZHFmc3gz&utm_source=qr" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Icon" />
+          </a>
+          <div class="followers">116.3K</div>
+          <div class="followers-text">Followers</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Telegram Button -->
+    <div class="telegram-container">
+      <a href="https://t.me/judas_theecoder7/11" target="_blank" class="telegram-button">
+        <i class="fab fa-telegram telegram-icon"></i>
+        Join Our Telegram
+      </a>
+    </div>
+
+    <!-- NEW ELEVATE YOUR TRADING SECTION -->
+    <div class="elevate-section">
+      <h1 class="elevate-title">ELEVATE YOUR TRADING...</h1>
+      <h2 class="elevate-subtitle">THE BEST TRADING TOOL</h2>
+      <div class="elevate-description">
+        A Smart Trading Solution<br>
+        The PRECISION BLUEPRINT AI is an advanced Metatrader 4 (MT4) & 5 trading system designed to maximize profits while minimizing risk. Uses Strength analysis, Trend Confirmation, and Momentum Confirmation to optimize trading decisions and enhance performance.
+      </div>
+    </div>
+
+    <!-- FEATURES GRID -->
+    <div class="features-container">
+      
+      <!-- Image above Scalping Strategy -->
+      <div class="feature-image-container">
+        <img src="2.jpeg" alt="Trading Strategy" class="feature-image">
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-title">Scalping Strategy</div>
+        <p>
+          Our robot specializes in scalping — performing many fast trades capturing
+          small market movements for consistent profit, identifying clean entry and exit
+          zones with precision.
+        </p>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-title">Speed & Efficiency</div>
+        <p>
+          Executes trades automatically in milliseconds to catch volatile conditions
+          and avoid slippage. It reacts faster than any human trader.
+        </p>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-title">Risk Management</div>
+        <p>
+          Dynamic smart stop-loss systems automatically adjust to protect capital
+          during unpredictable volatility, providing strong capital protection.
+        </p>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-title">Emotions Elimination</div>
+        <p>
+          Trading free from fear, greed, hesitation — this system executes based on logic
+          and strategy only, ensuring discipline and consistency.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- UPDATED PRODUCTS SECTION -->
+    <div class="products-section">
+      <div class="products-heading">OUR PRODUCTS</div>
+      <div class="products-subheading">Choose the version that suits your trading style and device preference</div>
+      
+      <div class="products-container">
+        
+        <!-- PC VERSION - UPDATED WITH FULL IMAGE (NO ICON) -->
+        <div class="product-card">
+          <img src="2.jpeg" alt="PC Version" class="product-image-full">
+          <div class="product-title">PC Version</div>
+          <div class="product-subtitle">World-Class Trading Robot</div>
+          
+          <!-- Info arrow button -->
+          <button class="info-arrow" id="pc-info-btn">
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          
+          <!-- PC Details Overlay -->
+          <div class="details-overlay" id="pc-details">
+            <div class="details-header">
+              <h2 class="details-title">PC Version</h2>
+              <button class="back-arrow" id="pc-back-btn">
+                <i class="fas fa-arrow-left"></i>
+              </button>
+            </div>
+            
+            <div class="version-label">World-Class Trading Robot</div>
+            <h3 class="robot-title">PC Version</h3>
+            
+            <h4 class="key-benefits-title">KEY BENEFITS</h4>
+            
+            <div class="benefits-grid">
+              <div class="benefit-item">
+                <i class="fas fa-chart-line benefit-icon"></i>
+                <span class="benefit-text">90%-96% Win Rate</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-exchange-alt benefit-icon"></i>
+                <span class="benefit-text">Automated Moving TP & SL</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-bolt benefit-icon"></i>
+                <span class="benefit-text">Automated Execution</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-search-dollar benefit-icon"></i>
+                <span class="benefit-text">Advanced Market Analysis</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-balance-scale benefit-icon"></i>
+                <span class="benefit-text">Risk-to-Reward Ratio 1:3</span>
+              </div>
+            </div>
+            
+            <div class="special-feature">
+              <div class="feature-title-large">International Access Trading</div>
+              <div class="feature-text">
+                Trade globally with access to international markets and brokers from anywhere in the world.
+              </div>
+            </div>
+          </div>
+          
+          <button class="get-button" id="pc-version-btn">
+            Get PC Version
+          </button>
+        </div>
+        
+        <!-- MOBILE VERSION - UPDATED WITH MOBILE PHONE FRAME -->
+        <div class="product-card">
+          <!-- Mobile Phone Frame -->
+          <div class="mobile-phone-frame">
+            <div class="mobile-screen">
+              <div class="mobile-screen-bg"></div>
+              <div class="mobile-screen-content">
+                <div class="mobile-screen-icon">
+                  <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="mobile-screen-title">PRECISION BLUEPRINT AI</h3>
+                <p class="mobile-screen-subtitle">Mobile Trading Solution</p>
+                <div class="mobile-screen-apps">
+                  <div class="mobile-app-icon">
+                    <i class="fas fa-chart-line"></i>
+                  </div>
+                  <div class="mobile-app-icon">
+                    <i class="fas fa-bolt"></i>
+                  </div>
+                  <div class="mobile-app-icon">
+                    <i class="fas fa-shield-alt"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-title">Mobile Version</div>
+          <div class="product-subtitle">On-The-Go Trading Solution</div>
+          
+          <!-- Info arrow button -->
+          <button class="info-arrow" id="mobile-info-btn">
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          
+          <!-- Mobile Details Overlay -->
+          <div class="details-overlay mobile-details" id="mobile-details">
+            <div class="details-header">
+              <h2 class="details-title">Mobile Version</h2>
+              <button class="back-arrow" id="mobile-back-btn">
+                <i class="fas fa-arrow-left"></i>
+              </button>
+            </div>
+            
+            <div class="version-label">On-The-Go Trading Solution</div>
+            <h3 class="robot-title">Mobile Version</h3>
+            
+            <h4 class="key-benefits-title">KEY BENEFITS</h4>
+            
+            <div class="benefits-grid">
+              <div class="benefit-item">
+                <i class="fas fa-chart-line benefit-icon"></i>
+                <span class="benefit-text">85%-92% Win Rate</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-exchange-alt benefit-icon"></i>
+                <span class="benefit-text">Smart TP & SL Management</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-bolt benefit-icon"></i>
+                <span class="benefit-text">Real-time Execution</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-search-dollar benefit-icon"></i>
+                <span class="benefit-text">Mobile Market Analysis</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-balance-scale benefit-icon"></i>
+                <span class="benefit-text">Risk-to-Reward Ratio 1:2.5</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-mobile-alt benefit-icon"></i>
+                <span class="benefit-text">iOS & Android Compatible</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-bell benefit-icon"></i>
+                <span class="benefit-text">Push Notification Alerts</span>
+              </div>
+              <div class="benefit-item">
+                <i class="fas fa-sync-alt benefit-icon"></i>
+                <span class="benefit-text">Cloud Sync Across Devices</span>
+              </div>
+            </div>
+            
+            <div class="special-feature">
+              <div class="feature-title-large">Trade Anywhere, Anytime</div>
+              <div class="feature-text">
+                Monitor markets and execute trades from your smartphone or tablet with the same powerful algorithm optimized for mobile performance.
+              </div>
+            </div>
+          </div>
+          
+          <button class="get-button mobile-button" id="mobile-version-btn">
+            Get Mobile Version
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TRUSTED BY USERS SECTION - UPDATED WITH CAROUSEL -->
+    <div class="trusted-section">
+      <div class="trusted-heading">TRUSTED BY 200+ USERS WORLDWIDE</div>
+      <div class="trusted-subheading">
+        Join the other 200+ traders that are on the same journey
+      </div>
+      
+      <!-- Image Carousel - Phone Size -->
+      <div class="carousel-container">
+        <button class="carousel-arrow carousel-arrow-left">←</button>
+        
+        <div class="carousel">
+          <!-- Slides will be populated by JavaScript -->
+        </div>
+        
+        <button class="carousel-arrow carousel-arrow-right">→</button>
+      </div>
+      
+      <!-- Carousel Dots Navigation -->
+      <div class="carousel-dots">
+        <!-- Dots will be added by JavaScript -->
+      </div>
+      
+      <div class="trusted-description">
+        using our algo and profiting everyday in the markets. See real users above who are achieving consistent 
+        results with our trading robots. Each image represents a satisfied trader from our growing community.
+      </div>
+    </div>
+
+    <!-- FAQ SECTION -->
+    <div class="faq-section">
+      <div class="faq-heading">FREQUENTLY ASKED QUESTIONS</div>
+      
+      <div class="faq-container">
+        
+        <!-- FAQ Item 1 - UPDATED FOR PRECISION BLUEPRINT AI -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is <span class="bot-name">PRECISION BLUEPRINT AI</span> beginner-friendly?</span>
+            <span class="faq-arrow"><i class="fas fa-chevron-right"></i></span>
+          </div>
+          <div class="faq-answer">
+            Yes, <span class="bot-name">PRECISION BLUEPRINT AI</span> is designed with beginners in mind. It features an intuitive interface, automated trading capabilities, and comes with detailed setup guides. The robot handles all complex calculations and executions, allowing beginners to start trading without extensive knowledge.
+          </div>
+        </div>
+        
+        <!-- FAQ Item 2 - UPDATED FOR PRECISION BLUEPRINT AI -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How much capital do I need to start using <span class="bot-name">PRECISION BLUEPRINT AI</span>?</span>
+            <span class="faq-arrow"><i class="fas fa-chevron-right"></i></span>
+          </div>
+          <div class="faq-answer">
+            The minimum recommended starting capital is <span class="highlight">R180 ($10)</span>. However, for optimal results and to fully utilize the robot's potential, a starting balance of <span class="highlight">R900+ ($50) as minimum funding or more is ideal</span>. This allows the robot to effectively manage risk and take advantage of diverse trading opportunities.
+          </div>
+        </div>
+        
+        <!-- FAQ Item 3 - UPDATED FOR PRECISION BLUEPRINT AI -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How do I set up and activate the robot?</span>
+            <span class="faq-arrow"><i class="fas fa-chevron-right"></i></span>
+          </div>
+          <div class="faq-answer">
+            Setting up <span class="bot-name">PRECISION BLUEPRINT AI</span> is quick and easy:<br><br>
+            1. Download and install the robot on your MT4 or MT5 platform.<br>
+            2. Enter your unique activation key provided upon subscription.<br>
+            3. Adjust risk settings to your preference (or use our recommended defaults).<br>
+            4. Start trading and let the robot do the work!<br><br>
+            If you encounter any issues, our support team and mentors are available to assist you.
+          </div>
+        </div>
+        
+        <!-- FAQ Item 4 - UPDATED -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>With the minimum funds how much can I make per-day?</span>
+            <span class="faq-arrow"><i class="fas fa-chevron-right"></i></span>
+          </div>
+          <div class="faq-answer">
+            With a <span class="highlight">$10 starting balance</span>, potential daily profits depend on the market conditions and risk settings. <span class="highlight">On average users report making 10-35% daily returns</span>, thanks to the EA's <span class="highlight">91% accuracy</span> and advanced risk management.
+          </div>
+        </div>
+        
+        <!-- FAQ Item 5 - UPDATED WITH BUTTONS -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Which Version is best recommended PC or Mobile?</span>
+            <span class="faq-arrow"><i class="fas fa-chevron-right"></i></span>
+          </div>
+          <div class="faq-answer">
+            Both versions <span class="highlight">PC and Mobile are highly recommended and effective</span>, but the best version depends on your preference and trading style.<br><br>
+            
+            <div class="version-buttons">
+              <button class="version-button pc-version-button" onclick="showProductPage('pc')">
+                PC Version
+              </button>
+              <button class="version-button mobile-version-button" onclick="showProductPage('mobile')">
+                Mobile Version
+              </button>
+            </div>
+            
+            <br>
+            <strong>PC Version:</strong> Best for serious traders who want full control, backtesting capabilities, and advanced features.<br><br>
+            <strong>Mobile Version:</strong> Perfect for traders on-the-go who want flexibility and real-time monitoring from anywhere.
+          </div>
+        </div>
+        
+        <!-- FAQ Item 6 - UPDATED -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Supported Brokerage and can I use bot if I'm not from South Africa?</span>
+            <span class="faq-arrow"><i class="fas fa-chevron-right"></i></span>
+          </div>
+          <div class="faq-answer">
+            <strong>Yes</strong> you can get access to use our Trading Robot Outside SA, but you can only have access to use/get the <span class="highlight">PC version</span> which supports any broker and trading symbols option.<br><br>
+            
+            For South Africans our bot supports all Trading brokers like:
+            <ul class="broker-list">
+              <li><span class="highlight">Just Markets (Recommended broker)</span></li>
+              <li>Razor Markets</li>
+              <li>Exness</li>
+              <li>Accumarkets</li>
+              <li>RCG Market & many more brokerages</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- FAQ Item 7 - UPDATED FOR PRECISION BLUEPRINT AI -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is <span class="bot-name">PRECISION BLUEPRINT AI</span> the best Robot on TikTok?</span>
+            <span class="faq-arrow"><i class="fas fa-chevron-right"></i></span>
+          </div>
+          <div class="faq-answer">
+            <span class="highlight">Yes</span> <span class="bot-name">PRECISION BLUEPRINT AI</span> is currently the best Trading robot in the SA Market.<br><br>
+            
+            You can make sure to proceed with your purchase from our Instagram, TikTok or straight from our Website. Our verified results and customer testimonials speak for themselves - we consistently deliver the highest returns with the safest risk management in the industry.
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- CUSTOM HELP SECTION -->
+    <div class="custom-help-section">
+      <div class="custom-help-heading">Need Custom Help?</div>
+      <div class="custom-help-text">
+        Our expert team is available 24/7 to assist you with setup, configuration, and any trading-related questions.
+      </div>
+      <a href="https://wa.me/27682648719" target="_blank" class="whatsapp-button">
+        <i class="fab fa-whatsapp whatsapp-icon"></i>
+        Chat on WhatsApp
+      </a>
+      <div class="help-note">
+        Click the button above to connect directly with our support team via WhatsApp
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PC PRODUCTS SELECTION PAGE -->
+  <div class="product-selection-page" id="pc-products-page">
+    <div class="selection-header">
+      <button class="back-button" onclick="goBackToMain()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <h1 class="selection-heading">PC VERSION PRODUCTS</h1>
+    </div>
+    
+    <div class="current-page">
+      <span class="page-indicator active"></span>
+      <span>PC Version Products</span>
+      <span class="page-indicator"></span>
+    </div>
+    
+    <p class="selection-subheading">
+      Choose from our premium collection of PC-based trading robots. Each product is optimized for maximum performance on desktop platforms.
+    </p>
+    
+    <div class="products-selection-grid">
+      
+      <!-- PIP ASSASSIN X-PERT EA PC - WITH IMAGE 20.jpg -->
+      <div class="product-selection-card pc-card">
+        <div class="product-badge">BEST SELLER</div>
+        <div class="product-image-container">
+          <img src="20.jpg" alt="PIP ASSASSIN X-PERT EA PC" class="product-selection-image">
+        </div>
+        <h2 class="product-selection-title">PIP ASSASSIN X-PERT EA PC</h2>
+        <div class="product-compatibility">Works on MT4 & MT5</div>
+        
+        <div class="product-features">
+          <div class="feature-item">
+            <i class="fas fa-desktop"></i>
+            <span>Desktop Platform</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-shield-alt"></i>
+            <span>Advanced Risk Management</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-sliders-h"></i>
+            <span>Customizable Settings</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-book"></i>
+            <span>Detailed User Manual</span>
+          </div>
+        </div>
+        
+        <div class="product-price">R 1200</div>
+        
+        <a href="https://pay.yoco.com/elite-market-traders-academy1" target="_blank" class="select-button">
+          SELECT THIS PRODUCT
+        </a>
+      </div>
+      
+      <!-- PRECISION BLUEPRINT AI PC - WITH IMAGE 21.jpg -->
+      <div class="product-selection-card pc-card">
+        <div class="product-badge">AI POWERED</div>
+        <div class="product-image-container">
+          <img src="21.jpg" alt="PRECISION BLUEPRINT AI PC" class="product-selection-image">
+        </div>
+        <h2 class="product-selection-title">PRECISION BLUEPRINT AI PC (MT4 & MT5)</h2>
+        <div class="product-compatibility">MT4 & MT5 Compatible</div>
+        
+        <div class="product-features">
+          <div class="feature-item">
+            <i class="fas fa-robot"></i>
+            <span>Advanced AI Algorithms</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Backtesting Capabilities</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-globe"></i>
+            <span>Multi-currency Pairs</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-headset"></i>
+            <span>Priority Support</span>
+          </div>
+        </div>
+        
+        <div class="product-price">R 1000</div>
+        
+        <a href="https://pay.yoco.com/elite-market-traders-academy1" target="_blank" class="select-button">
+          SELECT THIS PRODUCT
+        </a>
+      </div>
+      
+      <!-- TRADEMASTER SCALPER PC 2026 - WITH IMAGE 22.jpg -->
+      <div class="product-selection-card pc-card">
+        <div class="product-badge">NEW 2026</div>
+        <div class="product-image-container">
+          <img src="22.jpg" alt="TRADEMASTER SCALPER PC 2026" class="product-selection-image">
+        </div>
+        <h2 class="product-selection-title">TRADEMASTER SCALPER PC 2026</h2>
+        <div class="product-compatibility">MT5 ONLY</div>
+        
+        <div class="product-features">
+          <div class="feature-item">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Advanced Scalping Strategy</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-bolt"></i>
+            <span>Ultra-Fast Execution</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-chart-area"></i>
+            <span>Low Drawdown</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>2026 Updated Version</span>
+          </div>
+        </div>
+        
+        <div class="product-price">R 600</div>
+        
+        <a href="https://pay.yoco.com/elite-market-traders-academy1" target="_blank" class="select-button">
+          SELECT THIS PRODUCT
+        </a>
+      </div>
+      
+      <!-- ALGO SCALPER EA PC - WITH IMAGE 23.jpg -->
+      <div class="product-selection-card pc-card">
+        <div class="product-badge">BEGINNER FRIENDLY</div>
+        <div class="product-image-container">
+          <img src="23.jpg" alt="ALGO SCALPER EA PC" class="product-selection-image">
+        </div>
+        <h2 class="product-selection-title">ALGO SCALPER EA PC</h2>
+        <div class="product-compatibility">MT4 ONLY</div>
+        
+        <div class="product-features">
+          <div class="feature-item">
+            <i class="fas fa-cogs"></i>
+            <span>Algorithmic Scalping</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-sliders-h"></i>
+            <span>Customizable Parameters</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-balance-scale"></i>
+            <span>Stable Performance</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-user-graduate"></i>
+            <span>Suitable for Beginners</span>
+          </div>
+        </div>
+        
+        <div class="product-price">R 600</div>
+        
+        <a href="https://pay.yoco.com/elite-market-traders-academy1" target="_blank" class="select-button">
+          SELECT THIS PRODUCT
+        </a>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- MOBILE PRODUCTS SELECTION PAGE -->
+  <div class="product-selection-page" id="mobile-products-page">
+    <div class="selection-header">
+      <button class="back-button" onclick="goBackToMain()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <h1 class="selection-heading">MOBILE VERSION PRODUCTS</h1>
+    </div>
+    
+    <div class="current-page">
+      <span class="page-indicator active"></span>
+      <span>Mobile Version Products</span>
+      <span class="page-indicator"></span>
+    </div>
+    
+    <p class="selection-subheading">
+      Trade on-the-go with our optimized mobile trading robots. Perfect for active traders who need flexibility.
+    </p>
+    
+    <div class="products-selection-grid">
+      
+      <!-- PIP ASSASSIN X-PERT EA MOBILE -->
+      <div class="product-selection-card mobile-card">
+        <div class="product-badge">POPULAR</div>
+        <div class="product-image-container">
+          <img src="20.jpg" alt="PIP ASSASSIN X-PERT EA MOBILE" class="product-selection-image">
+        </div>
+        <h2 class="product-selection-title">PIP ASSASSIN X-PERT EA MOBILE</h2>
+        <div class="product-compatibility">Mobile Trading Platform</div>
+        
+        <div class="product-features">
+          <div class="feature-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Advanced Algorithm</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-bullseye"></i>
+            <span>High Accuracy Rate</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-headset"></i>
+            <span>24/7 Support</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-wrench"></i>
+            <span>Easy Setup & Configuration</span>
+          </div>
+        </div>
+        
+        <div class="product-price">R 900</div>
+        
+        <a href="https://pay.yoco.com/elite-market-traders-academy1" target="_blank" class="select-button">
+          SELECT THIS PRODUCT
+        </a>
+      </div>
+      
+      <!-- PRECISION BLUEPRINT AI MOBILE - UPDATED -->
+      <div class="product-selection-card mobile-card">
+        <div class="product-badge">AI POWERED</div>
+        <div class="product-image-container">
+          <img src="21.jpg" alt="PRECISION BLUEPRINT AI MOBILE" class="product-selection-image">
+        </div>
+        <h2 class="product-selection-title">PRECISION BLUEPRINT AI MOBILE</h2>
+        <div class="product-compatibility">Mobile Trading</div>
+        
+        <div class="product-features">
+          <div class="feature-item">
+            <i class="fas fa-robot"></i>
+            <span>AI-Powered Analysis</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-bell"></i>
+            <span>Real-time Signals</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-user-friends"></i>
+            <span>User-friendly Interface</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-shopping-cart"></i>
+            <span>One-time Purchase</span>
+          </div>
+        </div>
+        
+        <div class="product-price">R 750</div>
+        
+        <a href="https://pay.yoco.com/elite-market-traders-academy1" target="_blank" class="select-button">
+          SELECT THIS PRODUCT
+        </a>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- PURCHASE CONFIRMATION MODAL -->
+  <div class="modal" id="purchaseModal">
+    <div class="modal-content">
+      <div class="modal-icon">
+        <i class="fas fa-shopping-cart"></i>
+      </div>
+      <h2>Confirm Purchase</h2>
+      <p id="modalProductInfo"></p>
+      <div class="modal-buttons">
+        <button class="modal-button modal-confirm" onclick="confirmPurchase()">
+          Confirm Purchase
+        </button>
+        <button class="modal-button modal-cancel" onclick="closeModal()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER SECTION -->
+  <footer class="footer">
+    <div class="footer-container">
+      
+      <!-- Company Info with Social Icons -->
+      <div class="footer-column">
+        <div class="footer-logo">JUDASTHEE-CODER STORE</div>
+        <div class="footer-tagline">
+          Advanced forex trading technology for the modern trader. Harness the power of AI for consistent profits.
+        </div>
+        
+        <!-- Social Media Icons -->
+        <div class="footer-social-icons">
+          <a href="https://www.instagram.com/sgodo_za?igsh=eDE2N2xzZHFmc3gz&utm_source=qr" target="_blank" class="footer-social-icon instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://tiktok.com" target="_blank" class="footer-social-icon tiktok">
+            <i class="fab fa-tiktok"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Quick Links -->
+      <div class="footer-column">
+        <div class="footer-heading">QUICK LINKS</div>
+        <ul class="footer-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#terms" class="terms-trigger">Terms & Conditions</a></li>
+        </ul>
+      </div>
+      
+      <!-- Support -->
+      <div class="footer-column">
+        <div class="footer-heading">SUPPORT</div>
+        <ul class="footer-links">
+          <li><a href="#help">Help Center</a></li>
+          <li><a href="#docs">Documentation</a></li>
+          <li><a href="#install">Installation Guide</a></li>
+          <li><a href="#requirements">System Requirements</a></li>
+          <li><a href="#knowledge">Knowledge Base</a></li>
+        </ul>
+      </div>
+      
+      <!-- Contact -->
+      <div class="footer-column">
+        <div class="footer-heading">CONTACT</div>
+        <ul class="contact-info">
+          <li>
+            <i class="fas fa-envelope contact-icon"></i>
+            <span>elitemarkettradersacademy@gmail.com</span>
+          </li>
+          <li>
+            <i class="fas fa-phone contact-icon"></i>
+            <span>068 264 8719</span>
+          </li>
+        </ul>
+      </div>
+      
+    </div>
+    
+    <div class="footer-bottom">
+      <!-- Risk Disclaimer -->
+      <div class="footer-disclaimer">
+        © 2026 JUDASTHEE-CODER STORE. All rights reserved. Trading forex involves significant risk. Past performance is not indicative of future results.
+      </div>
+      
+      <!-- Bottom Links -->
+      <div class="footer-links-bottom">
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms" class="terms-trigger">Terms & Conditions</a>
+        <a href="#risk">Risk Disclosure</a>
+      </div>
+      
+      <!-- Copyright -->
+      <div class="copyright">
+        JUDASTHEE-CODER STORE | Advanced Forex Trading Solutions
+      </div>
+    </div>
+    
+    <!-- SMALL Terms & Conditions Dropdown -->
+    <div class="terms-dropdown">
+      <div class="terms-header">
+        <div class="terms-title">Terms & Conditions – JUDASTHEE-CODER STORE ▼</div>
+      </div>
+      <div class="terms-content">
+        
+        <div class="terms-section">
+          <h3>1. Product Overview</h3>
+          <p>JUDASTHEE-CODER STORE provides automated trading tools designed to execute trades on behalf of the user using advanced algorithmic strategies. These tools are engineered to minimize potential losses and maximize profit opportunities by identifying high-probability entries and exits in the forex market. This tool requires no prior trading knowledge and is intended to simplify the trading experience for both beginners and experienced traders.</p>
+        </div>
+        
+        <div class="terms-section">
+          <h3>2. User Responsibility</h3>
+          <p>By using JUDASTHEE-CODER STORE products, you acknowledge that:</p>
+          <ul>
+            <li>You are fully responsible for how the bot is used on your trading account.</li>
+            <li>You understand the risks involved in forex trading and accept full liability for your trading outcomes.</li>
+            <li>You have read and understood how to install and activate the bot on either MetaTrader 4 (MT4) or MetaTrader 5 (MT5).</li>
+          </ul>
+        </div>
+        
+        <div class="terms-section">
+          <h3>3. No Financial Guarantee</h3>
+          <p>While our trading robots are built to enhance your trading results, we do not guarantee specific profit amounts or the elimination of all trading losses. Market conditions vary, and performance can depend on a range of external factors beyond our control.</p>
+        </div>
+        
+        <div class="terms-section">
+          <h3>4. License and Activation</h3>
+          <p>Upon successful payment, users are issued a unique activation key that allows access to the bot. This license is for personal use only and may not be shared, duplicated, or resold. Each license is linked to a specific account and/or device.</p>
+        </div>
+        
+        <div class="terms-section">
+          <h3>5. Refund Policy</h3>
+          <p>To protect the intellectual property of our products and prevent abuse, all sales are final.</p>
+          <p>No refunds will be issued once the bot copy and activation key have been delivered, regardless of usage or outcome. By purchasing, you agree to this condition.</p>
+        </div>
+        
+        <div class="terms-section">
+          <h3>6. Software Updates and Support</h3>
+          <p>We are committed to continuously improving our trading robots. Users will receive updates when available, and our support team is accessible to assist with setup and general inquiries. Support is limited to technical issues and does not include personalized trading advice. For more support email us: <strong>elitemarkettradersacademy@gmail.com</strong></p>
+        </div>
+        
+        <div class="terms-section">
+          <h3>7. Prohibited Use</h3>
+          <p>The bot may not be used for illegal activities or shared in unauthorized groups or platforms. Any attempt to reverse engineer, crack, or resell the bot will result in permanent license revocation and possible legal action.</p>
+        </div>
+        
+        <div class="terms-section">
+          <h3>8. Agreement Acknowledgment</h3>
+          <p>By purchasing, downloading, installing, or using any JUDASTHEE-CODER STORE product, you acknowledge that you have read, understood, and agreed to these terms in full. If you do not agree, please do not proceed with the purchase.</p>
+          <p>Thank you for choosing JUDASTHEE-CODER STORE — your partner in smart, automated trading.</p>
+        </div>
+        
+      </div>
+    </div>
+    
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Initialize when DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      // ====================
+      // 1. TAGLINE ANIMATION - WORDS APPEAR ONE BY ONE AFTER 2 SECONDS
+      // ====================
+      // The animation is handled by CSS with these delays:
+      // Words will appear: UPDATED (2s), PROFITABLE (2.5s), FAST (3s), PRECISE (3.5s)
+      
+      // ====================
+      // 2. CLOSE BUTTON FOR BROKER CONTAINER
+      // ====================
+      const brokerCloseBtn = document.getElementById('brokerCloseBtn');
+      const brokerContainer = document.getElementById('brokerContainer');
+      
+      if (brokerCloseBtn && brokerContainer) {
+        brokerCloseBtn.addEventListener('click', () => {
+          brokerContainer.style.display = 'none';
+        });
+      }
+      
+      // ====================
+      // 3. INFO ARROW FUNCTIONALITY
+      // ====================
+      
+      // PC Version Info Arrow
+      const pcInfoBtn = document.getElementById('pc-info-btn');
+      const pcDetails = document.getElementById('pc-details');
+      const pcBackBtn = document.getElementById('pc-back-btn');
+      
+      if (pcInfoBtn && pcDetails && pcBackBtn) {
+        pcInfoBtn.addEventListener('click', () => {
+          pcDetails.classList.add('active');
+          pcInfoBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
+        });
+        
+        pcBackBtn.addEventListener('click', () => {
+          pcDetails.classList.remove('active');
+          pcInfoBtn.innerHTML = '<i class="fas fa-chevron-down"></i>';
+        });
+      }
+
+      // Mobile Version Info Arrow
+      const mobileInfoBtn = document.getElementById('mobile-info-btn');
+      const mobileDetails = document.getElementById('mobile-details');
+      const mobileBackBtn = document.getElementById('mobile-back-btn');
+      
+      if (mobileInfoBtn && mobileDetails && mobileBackBtn) {
+        mobileInfoBtn.addEventListener('click', () => {
+          mobileDetails.classList.add('active');
+          mobileInfoBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
+        });
+        
+        mobileBackBtn.addEventListener('click', () => {
+          mobileDetails.classList.remove('active');
+          mobileInfoBtn.innerHTML = '<i class="fas fa-chevron-down"></i>';
+        });
+      }
+
+      // ====================
+      // 4. PRODUCT NAVIGATION
+      // ====================
+      
+      let selectedProduct = null;
+
+      // Initialize product navigation buttons
+      const pcVersionBtn = document.getElementById('pc-version-btn');
+      const mobileVersionBtn = document.getElementById('mobile-version-btn');
+      
+      if (pcVersionBtn) {
+        pcVersionBtn.addEventListener('click', function() {
+          showProductPage('pc');
+        });
+      }
+      
+      if (mobileVersionBtn) {
+        mobileVersionBtn.addEventListener('click', function() {
+          showProductPage('mobile');
+        });
+      }
+
+      // ====================
+      // 5. IMAGE CAROUSEL
+      // ====================
+      
+      const carousel = document.querySelector('.carousel');
+      const dotsContainer = document.querySelector('.carousel-dots');
+      
+      // Updated carousel images to 1.jpg through 10.jpg
+      const carouselImages = [
+        '1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg',
+        '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'
+      ];
+      
+      // Create slides dynamically - simplified without text
+      carouselImages.forEach((img, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+        slide.innerHTML = `
+          <img src="${img}" alt="User Testimonial ${index + 1}" class="user-image" onerror="this.onerror=null; this.src=''; this.parentElement.innerHTML='<div class=\'image-placeholder\'><div>Testimonial ${index + 1}</div><span>Image: ${img}</span></div>';">
+        `;
+        carousel.appendChild(slide);
+      });
+      
+      const slides = document.querySelectorAll('.carousel-slide');
+      const leftArrow = document.querySelector('.carousel-arrow-left');
+      const rightArrow = document.querySelector('.carousel-arrow-right');
+      
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+      
+      // Create dots for navigation
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot';
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+      
+      const dots = document.querySelectorAll('.carousel-dot');
+      
+      // Function to update carousel position
+      function updateCarousel() {
+        carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+        
+        // Update active dot
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === currentSlide);
+        });
+      }
+      
+      // Function to go to specific slide
+      function goToSlide(slideIndex) {
+        currentSlide = slideIndex;
+        updateCarousel();
+      }
+      
+      // Function for next slide
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateCarousel();
+      }
+      
+      // Function for previous slide
+      function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+      }
+      
+      // Add event listeners to arrows
+      if (leftArrow) leftArrow.addEventListener('click', prevSlide);
+      if (rightArrow) rightArrow.addEventListener('click', nextSlide);
+      
+      // Auto-advance carousel every 5 seconds
+      let carouselInterval = setInterval(nextSlide, 5000);
+      
+      // Pause auto-advance when hovering over carousel
+      if (carousel) {
+        carousel.addEventListener('mouseenter', () => {
+          clearInterval(carouselInterval);
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+          carouselInterval = setInterval(nextSlide, 5000);
+        });
+      }
+
+      // ====================
+      // 6. FAQ ACCORDION
+      // ====================
+      
+      document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+          const answer = question.nextElementSibling;
+          const arrowIcon = question.querySelector('.faq-arrow i');
+          
+          // Toggle active class for answer
+          answer.classList.toggle('active');
+          
+          // Toggle arrow icon
+          if (answer.classList.contains('active')) {
+            arrowIcon.classList.remove('fa-chevron-right');
+            arrowIcon.classList.add('fa-chevron-down');
+          } else {
+            arrowIcon.classList.remove('fa-chevron-down');
+            arrowIcon.classList.add('fa-chevron-right');
+          }
+          
+          // Close other open FAQs
+          document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
+            if (otherAnswer !== answer && otherAnswer.classList.contains('active')) {
+              otherAnswer.classList.remove('active');
+              const otherArrowIcon = otherAnswer.previousElementSibling.querySelector('.faq-arrow i');
+              otherArrowIcon.classList.remove('fa-chevron-down');
+              otherArrowIcon.classList.add('fa-chevron-right');
+            }
+          });
+        });
+      });
+
+      // ====================
+      // 7. TERMS & CONDITIONS
+      // ====================
+      
+      const termsHeader = document.querySelector('.terms-header');
+      const termsContent = document.querySelector('.terms-content');
+      const termsTriggers = document.querySelectorAll('.terms-trigger');
+
+      if (termsHeader) {
+        termsHeader.addEventListener('click', () => {
+          const isActive = termsContent.classList.toggle('active');
+          const titleText = document.querySelector('.terms-title');
+          titleText.innerHTML = `Terms & Conditions – JUDASTHEE-CODER STORE ${isActive ? '▲' : '▼'}`;
+        });
+      }
+
+      // Make Terms & Conditions links in footer also trigger the dropdown
+      termsTriggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (!termsContent.classList.contains('active')) {
+            termsContent.classList.add('active');
+            const titleText = document.querySelector('.terms-title');
+            titleText.innerHTML = 'Terms & Conditions – JUDASTHEE-CODER STORE ▲';
+          }
+          // Scroll to terms section
+          document.querySelector('.terms-dropdown').scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+
+      // ====================
+      // 8. WHATSAPP & TELEGRAM BUTTONS
+      // ====================
+      
+      const whatsappButton = document.querySelector('.whatsapp-button');
+      if (whatsappButton) {
+        whatsappButton.addEventListener('click', function(e) {
+          console.log('WhatsApp support button clicked');
+        });
+      }
+
+      const telegramButton = document.querySelector('.telegram-button');
+      if (telegramButton) {
+        telegramButton.addEventListener('click', function(e) {
+          console.log('Telegram button clicked');
+          // Add your Telegram channel analytics tracking here
+        });
+      }
+
+      // ====================
+      // 9. FOOTER SOCIAL ICONS
+      // ====================
+      
+      document.querySelectorAll('.footer-social-icon').forEach(icon => {
+        icon.addEventListener('click', function(e) {
+          const platform = this.classList.contains('instagram') ? 'Instagram' : 'TikTok';
+          console.log(`Social icon clicked: ${platform}`);
+        });
+      });
+
+      // Open first FAQ by default
+      const firstQuestion = document.querySelector('.faq-question');
+      if (firstQuestion) {
+        setTimeout(() => firstQuestion.click(), 500);
+      }
+      
+      // ====================
+      // 10. UPDATE SELECT BUTTONS TO USE YOCO LINK
+      // ====================
+      
+      // Update all SELECT THIS PRODUCT buttons to use YoCo payment link
+      document.querySelectorAll('.select-button').forEach(button => {
+        // Only update if it's not already an anchor tag
+        if (button.tagName === 'BUTTON') {
+          const parent = button.parentElement;
+          const text = button.textContent;
+          const href = 'https://pay.yoco.com/elite-market-traders-academy1';
+          
+          // Replace button with anchor tag
+          const newLink = document.createElement('a');
+          newLink.href = href;
+          newLink.target = '_blank';
+          newLink.className = button.className;
+          newLink.innerHTML = button.innerHTML;
+          newLink.textContent = text;
+          
+          parent.replaceChild(newLink, button);
+        }
+      });
+      
+    });
+
+    // ====================
+    // GLOBAL FUNCTIONS
+    // ====================
+    
+    // Function to show specific product page
+    function showProductPage(type) {
+      // Hide main content
+      document.querySelector('.main-content').classList.add('hidden');
+      
+      // Show specific product page
+      if (type === 'pc') {
+        document.getElementById('pc-products-page').classList.add('active');
+        document.getElementById('mobile-products-page').classList.remove('active');
+      } else if (type === 'mobile') {
+        document.getElementById('mobile-products-page').classList.add('active');
+        document.getElementById('pc-products-page').classList.remove('active');
+      }
+      
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+
+    // Function to go back to main page
+    function goBackToMain() {
+      // Hide product pages
+      document.getElementById('pc-products-page').classList.remove('active');
+      document.getElementById('mobile-products-page').classList.remove('active');
+      
+      // Show main content
+      document.querySelector('.main-content').classList.remove('hidden');
+      
+      // Scroll to products section
+      document.querySelector('.products-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Function to select a product
+    function selectProduct(productName, price, type) {
+      selectedProduct = {
+        name: productName,
+        price: price,
+        type: type
+      };
+      
+      // Update modal content
+      const modalInfo = document.getElementById('modalProductInfo');
+      if (modalInfo) {
+        modalInfo.innerHTML = `
+          You are about to purchase:<br>
+          <strong>${productName}</strong><br><br>
+          Price: <strong>R ${price}</strong><br>
+          Platform: <strong>${type} Version</strong><br><br>
+          Click "Confirm Purchase" to proceed to checkout.
+        `;
+      }
+      
+      // Show modal
+      const purchaseModal = document.getElementById('purchaseModal');
+      if (purchaseModal) {
+        purchaseModal.classList.add('active');
+      }
+    }
+
+    // Function to close modal
+    function closeModal() {
+      const purchaseModal = document.getElementById('purchaseModal');
+      if (purchaseModal) {
+        purchaseModal.classList.remove('active');
+      }
+      selectedProduct = null;
+    }
+
+    // Function to confirm purchase
+    function confirmPurchase() {
+      if (selectedProduct) {
+        // Redirect to YoCo payment page
+        window.open('https://pay.yoco.com/elite-market-traders-academy1', '_blank');
+        
+        closeModal();
+      }
+    }
+
+    // Close modal when clicking outside or pressing Escape
+    document.addEventListener('click', function(e) {
+      const purchaseModal = document.getElementById('purchaseModal');
+      if (purchaseModal && e.target === purchaseModal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      const purchaseModal = document.getElementById('purchaseModal');
+      if (e.key === 'Escape' && purchaseModal && purchaseModal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+  </script>
+</body>
+</html>
